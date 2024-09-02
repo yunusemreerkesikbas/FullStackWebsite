@@ -12,15 +12,15 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Ürünler</h4>
+                        <h4>Markalar</h4>
                     </div>
+
                     <div class="card-body">
                         <div class="list-product-header">
                             <div>
-
                                 <a class="btn btn-primary" href="#!">
                                     <i class="fa fa-plus"></i>
-                                    Ürün Ekle
+                                    Marka Ekle
                                 </a>
                             </div>
                         </div>
@@ -33,9 +33,7 @@
                                             <input class="form-check-input checkbox-primary" type="checkbox">
                                         </div>
                                     </th>
-                                    <th> <span class="f-light f-w-600">Ürün</span></th>
-                                    <th> <span class="f-light f-w-600">Açıklama</span></th>
-                                    <th> <span class="f-light f-w-600">Kategori</span></th>
+                                    <th> <span class="f-light f-w-600">Logo</span></th>
                                     <th> <span class="f-light f-w-600">Durum</span></th>
                                     <th> <span class="f-light f-w-600">İşlem</span></th>
                                 </tr>
@@ -53,10 +51,6 @@
                                             <p>T-Shirts</p>
                                         </div>
                                     </td>
-                                    <td>
-                                        <p class="f-light">Special PriceGet at flat ₹229</p>
-                                    </td>
-                                    <td> <span class="badge badge-light-primary">Clothing</span></td>
                                     <td> <span class="badge badge-light-success">Aktif</span></td>
                                     <td>
                                         <div class="product-action">

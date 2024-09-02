@@ -2,7 +2,7 @@
   var editor2 = new Quill("#editor2", {
     modules: { toolbar: "#toolbar2" },
     theme: "snow",
-    placeholder: "Enter your messages...",
+    placeholder: "Ürün açıklaması ekle...",
   });
 
   var editor3 = new Quill("#editor3", {
@@ -14,7 +14,7 @@
   var editor4 = new Quill("#editor4", {
     modules: { toolbar: "#toolbar4" },
     theme: "snow",
-    placeholder: "Enter your messages...",
+    placeholder: "Açıklama Ekle...",
   });
   // =====================================================================
   function openAlert() {

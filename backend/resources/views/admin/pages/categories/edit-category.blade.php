@@ -1,6 +1,7 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Yönetim Paneli')
+@section('title', 'Kategori Düzenle')
+
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/quill.snow.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/select2.css') }}">
@@ -8,9 +9,8 @@
 @endsection
 
 @section('breadcrumb')
-    SSS Ekle
+    {{$category->name}}
 @endsection
-
 
 @section('content')
     <div class="container-fluid">
@@ -18,37 +18,38 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Kategori Ekle</h4>
+                        <h4>{{$category->name}} Düzenle</h4>
                     </div>
-                    <div class="card-body add-post">
-                        <form class="row needs-validation" novalidate="">
-                            <div class="col-sm-12">
-                                <div class="mb-3">
-                                    <label for="validationCustom01">Kategori Adı:</label>
-                                    <input class="form-control" id="validationCustom01" type="text" placeholder="Kategori Adı" required="">
-                                    <div class="valid-feedback">Looks good!</div>
+                    <div class="card-body">
+                        <form action="{{ route('admin.categories.update', $category->id) }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+                            <div class="mb-3">
+                                <label for="name">Kategori Adı:</label>
+                                <input class="form-control" id="name" name="name" type="text" value="{{ $category->name }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label>Anasayfada Göster:</label>
+                                <div class="m-checkbox-inline">
+                                    <label for="status_active">
+                                        <input class="radio_animated" id="status_active" type="radio" name="status" value="1" {{ $category->status == 1 ? 'checked' : '' }}>Aktif
+                                    </label>
+                                    <label for="status_inactive">
+                                        <input class="radio_animated" id="status_inactive" type="radio" name="status" value="0" {{ $category->status == 0 ? 'checked' : '' }}>Pasif
+                                    </label>
                                 </div>
-                                <div class="mb-3">
-                                    <label>Anasayfada Göster:</label>
-                                    <div class="m-checkbox-inline">
-                                        <label for="edo-ani">
-                                            <input class="radio_animated" id="edo-ani" type="radio" name="rdo-ani" checked="">Aktif
-                                        </label>
-                                        <label for="edo-ani1">
-                                            <input class="radio_animated" id="edo-ani1" type="radio" name="rdo-ani">Pasif
-                                        </label>
-
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <div class="col-form-label">Üst Kategori:
-                                        <select class="js-example-placeholder-multiple col-sm-12" multiple="multiple">
-                                            <option value="AL">Yok</option>
-                                            <option value="AL">Lifestyle</option>
-                                            <option value="WY">Travel</option>
-                                        </select>
-                                    </div>
-                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label>Üst Kategori:</label>
+                                <select class="form-control" name="parent_id">
+                                    <option value="">Yok</option>
+                                    @foreach($categories as $parentCategory)
+                                        <option value="{{ $parentCategory->id }}" {{ $category->parent_id == $parentCategory->id ? 'selected' : '' }}>
+                                            {{ $parentCategory->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
                                 <div class="email-wrapper">
                                     <div class="theme-form">
                                         <div class="mb-3">
@@ -87,43 +88,36 @@
                                     <button class="ql-align" value="justify"></button></span><span class="ql-formats">
                                     <button class="ql-clean"></button></span>
                                                 </div>
-                                                <div id="editor8"></div>
+                                                <div id="editor8">
+                                                    {{ $category->description }}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12">
-                                    <div class="row">
-                                        <div class="mb-3 col-sm-6">
-                                            <label for="validationCustom01">Meta Başlık:</label>
-                                            <input class="form-control" id="validationCustom01" type="text" placeholder="Kategori Adı" required="">
-                                            <div class="valid-feedback">Looks good!</div>
-                                        </div>
-                                        <div class="mb-3 col-sm-6">
-                                            <label for="validationCustom01">Meta Açıklama:</label>
-                                            <input class="form-control" id="validationCustom01" type="text" placeholder="Kategori Açıklama" required="">
-                                            <div class="valid-feedback">Looks good!</div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="mb-3">
+                                <label>Meta Başlık:</label>
+                                <input class="form-control" name="meta_title" type="text" value="{{ $category->meta_title }}">
                             </div>
-
-                        </form>
-                        <form class="dropzone" id="singleFileUpload" action="/upload.php">
-                            <div class="m-0 dz-message needsclick"><i class="icon-cloud-up"></i>
-                                <h5 class="f-w-600 mb-0">Kapak Resmi Ekle</h5>
+                            <div class="mb-3">
+                                <label>Meta Açıklama:</label>
+                                <input class="form-control" name="meta_description" type="text" value="{{ $category->meta_description }}">
                             </div>
+                            <div class="mb-3">
+                                <label>Kapak Resmi:</label>
+                                <input type="file" name="cover_image" class="form-control">
+                                @if($category->cover_image)
+                                    <img src="{{ asset('storage/' . $category->cover_image) }}" alt="{{ $category->name }}" width="100" class="mt-2">
+                                @endif
+                            </div>
+                            <button class="btn btn-primary" type="submit">Güncelle</button>
+                            <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary">Vazgeç</a>
                         </form>
-                        <div class="btn-showcase text-end">
-                            <button class="btn btn-primary" type="submit">Ekle</button>
-                            <input class="btn btn-light" type="reset" value="Vazgeç">
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 @endsection
 
 @section('js')

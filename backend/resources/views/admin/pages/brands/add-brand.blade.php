@@ -7,51 +7,31 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/dropzone.min.css') }}">
 @endsection
 
+@section('breadcrumb')
+    Marka Ekle
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Post Edit</h4>
+                        <h4>Marka Ekle</h4>
                     </div>
                     <div class="card-body add-post">
                         <form class="row needs-validation" novalidate="">
                             <div class="col-sm-12">
                                 <div class="mb-3">
-                                    <label for="validationCustom01">Title:</label>
-                                    <input class="form-control" id="validationCustom01" type="text" placeholder="Post Title" required="">
+                                    <label for="validationCustom01">Marka Adı:</label>
+                                    <input class="form-control" id="validationCustom01" type="text" placeholder="Kategori Adı" required="">
                                     <div class="valid-feedback">Looks good!</div>
                                 </div>
-                                <div class="mb-3">
-                                    <label>Type:</label>
-                                    <div class="m-checkbox-inline">
-                                        <label for="edo-ani">
-                                            <input class="radio_animated" id="edo-ani" type="radio" name="rdo-ani" checked="">Text
-                                        </label>
-                                        <label for="edo-ani1">
-                                            <input class="radio_animated" id="edo-ani1" type="radio" name="rdo-ani">Image
-                                        </label>
-                                        <label for="edo-ani2">
-                                            <input class="radio_animated" id="edo-ani2" type="radio" name="rdo-ani" checked="">Audio
-                                        </label>
-                                        <label for="edo-ani3">
-                                            <input class="radio_animated" id="edo-ani3" type="radio" name="rdo-ani">Video
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <div class="col-form-label">Category:
-                                        <select class="js-example-placeholder-multiple col-sm-12" multiple="multiple">
-                                            <option value="AL">Lifestyle</option>
-                                            <option value="WY">Travel</option>
-                                        </select>
-                                    </div>
-                                </div>
+
                                 <div class="email-wrapper">
                                     <div class="theme-form">
                                         <div class="mb-3">
-                                            <label class="w-100">Content:</label>
+                                            <label class="w-100">Açıklama:</label>
                                             <div class="toolbar-box">
                                                 <div id="toolbar8"><span class="ql-formats">
                                     <select class="ql-size">
@@ -91,16 +71,48 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="mb-3 col-sm-6">
+                                            <label for="validationCustom01">Meta Başlık:</label>
+                                            <input class="form-control" id="validationCustom01" type="text" placeholder="Kategori Adı" required="">
+                                            <div class="valid-feedback">Looks good!</div>
+                                        </div>
+                                        <div class="mb-3 col-sm-6">
+                                            <label for="validationCustom01">Meta Açıklama:</label>
+                                            <input class="form-control" id="validationCustom01" type="text" placeholder="Kategori Açıklama" required="">
+                                            <div class="valid-feedback">Looks good!</div>
+                                        </div>
+                                        <div class="mb-3 col-sm-6">
+                                            <label for="validationCustom01">Anahtar Kelime:</label>
+                                            <input class="form-control" id="validationCustom01" type="text" placeholder="Anahtar Kelimeler" required="">
+                                            <div class="valid-feedback">Looks good!</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>İşlem Durumu:</label>
+                                    <div class="m-checkbox-inline">
+                                        <label for="edo-ani">
+                                            <input class="radio_animated" id="edo-ani" type="radio" name="rdo-ani" checked="">Aktif
+                                        </label>
+                                        <label for="edo-ani1">
+                                            <input class="radio_animated" id="edo-ani1" type="radio" name="rdo-ani">Pasif
+                                        </label>
+
+                                    </div>
+                                </div>
                             </div>
+
                         </form>
                         <form class="dropzone" id="singleFileUpload" action="/upload.php">
                             <div class="m-0 dz-message needsclick"><i class="icon-cloud-up"></i>
-                                <h5 class="f-w-600 mb-0">Drop files here or click to upload.</h5>
+                                <h5 class="f-w-600 mb-0">Logo Ekle</h5>
                             </div>
                         </form>
                         <div class="btn-showcase text-end">
-                            <button class="btn btn-primary" type="submit">Post</button>
-                            <input class="btn btn-light" type="reset" value="Discard">
+                            <button class="btn btn-primary" type="submit">Ekle</button>
+                            <input class="btn btn-light" type="reset" value="Vazgeç">
                         </div>
                     </div>
                 </div>

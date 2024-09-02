@@ -1,15 +1,10 @@
 @extends('admin.layouts.app')
 
 @section('title', 'Yönetim Paneli')
-
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/quill.snow.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/select2.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/dropzone.min.css') }}">
-@endsection
-
-@section('breadcrumb')
-    Kategori Ekle
 @endsection
 
 @section('content')
@@ -18,38 +13,17 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Kategori Ekle</h4>
+                        <h4>Marka Ekle</h4>
                     </div>
                     <div class="card-body add-post">
-                        <form class="row needs-validation" novalidate="" action="{{ route('admin.categories.store') }}" method="POST" enctype="multipart/form-data">
-                            @csrf
+                        <form class="row needs-validation" novalidate="">
                             <div class="col-sm-12">
                                 <div class="mb-3">
-                                    <label for="name">Kategori Adı:</label>
-                                    <input class="form-control" id="name" name="name" type="text" placeholder="Kategori Adı" required="">
+                                    <label for="validationCustom01">Marka Adı:</label>
+                                    <input class="form-control" id="validationCustom01" type="text" placeholder="Kategori Adı" required="">
                                     <div class="valid-feedback">Looks good!</div>
                                 </div>
-                                <div class="mb-3">
-                                    <label>Anasayfada Göster:</label>
-                                    <div class="m-checkbox-inline">
-                                        <label for="status_active">
-                                            <input class="radio_animated" id="status_active" type="radio" name="status" value="1" checked="">Aktif
-                                        </label>
-                                        <label for="status_inactive">
-                                            <input class="radio_animated" id="status_inactive" type="radio" name="status" value="0">Pasif
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <div class="col-form-label">Üst Kategori:
-                                        <select class="js-example-placeholder-multiple col-sm-12" name="parent_id">
-                                            <option value="">Yok</option>
-                                            @foreach($categories as $category)
-                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
+
                                 <div class="email-wrapper">
                                     <div class="theme-form">
                                         <div class="mb-3">
@@ -96,35 +70,46 @@
                                 <div class="col-12">
                                     <div class="row">
                                         <div class="mb-3 col-sm-6">
-                                            <label for="meta_title">Meta Başlık:</label>
-                                            <input class="form-control" id="meta_title" name="meta_title" type="text" placeholder="Meta Başlık" required="">
+                                            <label for="validationCustom01">Meta Başlık:</label>
+                                            <input class="form-control" id="validationCustom01" type="text" placeholder="Kategori Adı" required="">
                                             <div class="valid-feedback">Looks good!</div>
                                         </div>
                                         <div class="mb-3 col-sm-6">
-                                            <label for="meta_description">Meta Açıklama:</label>
-                                            <input class="form-control" id="meta_description" name="meta_description" type="text" placeholder="Meta Açıklama" required="">
+                                            <label for="validationCustom01">Meta Açıklama:</label>
+                                            <input class="form-control" id="validationCustom01" type="text" placeholder="Kategori Açıklama" required="">
+                                            <div class="valid-feedback">Looks good!</div>
+                                        </div>
+                                        <div class="mb-3 col-sm-6">
+                                            <label for="validationCustom01">Anahtar Kelime:</label>
+                                            <input class="form-control" id="validationCustom01" type="text" placeholder="Anahtar Kelimeler" required="">
                                             <div class="valid-feedback">Looks good!</div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <input type="hidden" name="cover_image" id="cover_image_path" value="{{ old('cover_image') }}">
+                                <div class="mb-3">
+                                    <label>İşlem Durumu:</label>
+                                    <div class="m-checkbox-inline">
+                                        <label for="edo-ani">
+                                            <input class="radio_animated" id="edo-ani" type="radio" name="rdo-ani" checked="">Aktif
+                                        </label>
+                                        <label for="edo-ani1">
+                                            <input class="radio_animated" id="edo-ani1" type="radio" name="rdo-ani">Pasif
+                                        </label>
 
-                            <div class="btn-showcase text-end">
-                                <button class="btn btn-primary" type="submit">Ekle</button>
-                                <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary">Vazgeç</a>
-                            </div>
-                        </form>
-
-                        <form class="dropzone mt-4" id="singleFileUpload" action="{{ route('admin.categories.uploadCoverImage') }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            <div class="form-group">
-                                <div class="dz-message needsclick">
-                                    <i class="icon-cloud-up"></i>
-                                    <h5 class="f-w-600 mb-0">Kapak Resmi Yüklemek İçin Tıklayın veya Sürükleyin</h5>
+                                    </div>
                                 </div>
                             </div>
+
                         </form>
+                        <form class="dropzone" id="singleFileUpload" action="/upload.php">
+                            <div class="m-0 dz-message needsclick"><i class="icon-cloud-up"></i>
+                                <h5 class="f-w-600 mb-0">Logo Ekle</h5>
+                            </div>
+                        </form>
+                        <div class="btn-showcase text-end">
+                            <button class="btn btn-primary" type="submit">Ekle</button>
+                            <input class="btn btn-light" type="reset" value="Vazgeç">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -141,19 +126,4 @@
     <script src="{{ asset('assets/js/editors/quill.js') }}"></script>
     <script src="{{ asset('assets/js/custom-add-product4.js') }}"></script>
     <script src="{{ asset('assets/js/form-validation-custom.js') }}"></script>
-    <script>
-        // Dropzone.js ayarları
-        Dropzone.options.singleFileUpload = {
-            paramName: "file", // Dosyanın taşınacağı parametre ismi
-            maxFilesize: 2, // MB cinsinden maksimum dosya boyutu
-            success: function(file, response) {
-                // Dosya yükleme başarılı olursa gelen path değerini hidden input'a set ediyoruz
-                document.getElementById('cover_image_path').value = response.path;
-            },
-            error: function(file, response) {
-                // Hata durumunda yapılacak işlemler
-                console.log(response);
-            }
-        };
-    </script>
 @endsection

@@ -3637,6 +3637,27 @@
   //
   //     <form action="/upload" id="my-dropzone-element-id" class="dropzone"></form>
   Dropzone.options = {};
+    Dropzone.options.singleFileUpload = {
+        paramName: "file",
+        maxFiles: 1,
+        maxFilesize: 5,
+        addRemoveLinks: true,
+        accept: function (file, done) {
+            if (file.name == "justinbieber.jpg") {
+                done("Naha, you don't.");
+            } else {
+                done();
+            }
+        },
+        init: function () {
+            console.log('selam');
+            this.on("success", function (file, response) {
+                if (response.path) {
+                    document.getElementById('cover_image_path').value = response.path;
+                }
+            });
+        }
+    };
 
   // Returns the options for an element or undefined if none available.
   Dropzone.optionsForElement = function (element) {

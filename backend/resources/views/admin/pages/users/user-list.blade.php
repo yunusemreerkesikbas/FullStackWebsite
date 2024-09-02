@@ -3,7 +3,6 @@
 @section('title', 'Yönetim Paneli')
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/owlcarousel.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/js-datatables/style.css') }}">
 @endsection
 
 @section('content')
@@ -12,15 +11,15 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Ürünler</h4>
+                        <h4>Kullanıcılar</h4>
                     </div>
+
                     <div class="card-body">
                         <div class="list-product-header">
                             <div>
-
                                 <a class="btn btn-primary" href="#!">
                                     <i class="fa fa-plus"></i>
-                                    Ürün Ekle
+                                    Kullanıcı Ekle
                                 </a>
                             </div>
                         </div>
@@ -33,10 +32,9 @@
                                             <input class="form-check-input checkbox-primary" type="checkbox">
                                         </div>
                                     </th>
-                                    <th> <span class="f-light f-w-600">Ürün</span></th>
-                                    <th> <span class="f-light f-w-600">Açıklama</span></th>
-                                    <th> <span class="f-light f-w-600">Kategori</span></th>
-                                    <th> <span class="f-light f-w-600">Durum</span></th>
+                                    <th> <span class="f-light f-w-600">Kullanıcı Adı</span></th>
+                                    <th> <span class="f-light f-w-600">Email</span></th>
+                                    <th> <span class="f-light f-w-600">Kullanıcı Rolü</span></th>
                                     <th> <span class="f-light f-w-600">İşlem</span></th>
                                 </tr>
                                 </thead>
@@ -49,15 +47,11 @@
                                     </td>
                                     <td>
                                         <div class="product-names">
-                                            <div class="light-product-box"><img class="img-fluid" src="../assets/images/product/1.png" alt="t-shirt"></div>
-                                            <p>T-Shirts</p>
+                                            <p>Admin</p>
                                         </div>
                                     </td>
-                                    <td>
-                                        <p class="f-light">Special PriceGet at flat ₹229</p>
-                                    </td>
-                                    <td> <span class="badge badge-light-primary">Clothing</span></td>
-                                    <td> <span class="badge badge-light-success">Aktif</span></td>
+                                    <td> <span class="">admin@admin.com</span></td>
+                                    <td> <span class="badge badge-light-primary">Admin</span></td>
                                     <td>
                                         <div class="product-action">
                                             <svg>
@@ -83,7 +77,6 @@
 
 @section('js')
     <script src="{{ asset('assets/js/owlcarousel/owl.carousel.js') }}"></script>
-    <script src="{{ asset('assets/js/js-datatables/simple-datatables@latest.js') }}"></script>
     <script src="{{ asset('assets/js/custom-list-product.js') }}"></script>
     <script src="{{ asset('assets/js/ecommerce.js') }}"></script>
 @endsection
