@@ -8,7 +8,7 @@
 @endsection
 
 @section('breadcrumb')
-    Marka Ekle
+    Marka Düzenle
 @endsection
 
 @section('content')
@@ -17,43 +17,44 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Marka Ekle</h4>
+                        <h4>{{ $brand->name }}</h4>
                     </div>
                     <div class="card-body add-post">
-                        <form class="row needs-validation" novalidate="" action="{{ route('admin.brands.store') }}" method="POST" enctype="multipart/form-data">
+                        <form class="row needs-validation" novalidate="" action="{{ route('admin.brands.update', $brand->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
                             <div class="col-sm-12">
                                 <div class="mb-3">
                                     <label for="name">Marka Adı:</label>
-                                    <input class="form-control" id="name" name="name" type="text" placeholder="Marka Adı" required="" value="{{ old('name') }}">
-                                    <div class="valid-feedback">Looks good!</div>
+                                    <input class="form-control @error('name') is-invalid @enderror" id="name" type="text" placeholder="Marka Adı" value="{{old('name', $brand->name)}}" required="">
+                                    @error('name')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
                                 <div class="mb-3">
                                     <label>Anasayfada Göster:</label>
                                     <div class="m-checkbox-inline">
                                         <label for="status_active">
-                                            <input class="radio_animated" id="status_active" type="radio" name="status" value="1" checked="">Aktif
+                                            <input class="radio_animated" id="status_active" type="radio" name="status" value="1" {{ $category->status == 1 ? 'checked' : '' }}>Aktif
                                         </label>
                                         <label for="status_inactive">
-                                            <input class="radio_animated" id="status_inactive" type="radio" name="status" value="0">Pasif
+                                            <input class="radio_animated" id="status_inactive" type="radio" name="status" value="0" {{ $category->status == 0 ? 'checked' : '' }}>Pasif
                                         </label>
                                     </div>
                                 </div>
                             </div>
-                            <input type="hidden" name="cover_image" id="cover_image_path" value="{{ old('cover_image') }}">
-                            <div class="btn-showcase text-end">
-                                <button class="btn btn-primary" type="submit">Ekle</button>
-                                <input class="btn btn-light" type="reset" value="Vazgeç">
-                            </div>
+
                         </form>
-                        <form class="dropzone mt-4" id="singleFileUpload" action="{{ route('admin.brands.uploadCoverImage') }}" method="POST" enctype="multipart/form-data">
-                            @csrf
+                        <form class="dropzone" id="singleFileUpload" action="/upload.php">
                             <div class="m-0 dz-message needsclick"><i class="icon-cloud-up"></i>
                                 <h5 class="f-w-600 mb-0">Logo Ekle</h5>
                             </div>
                         </form>
-
+                        <div class="btn-showcase text-end">
+                            <button class="btn btn-primary" type="submit">Ekle</button>
+                            <input class="btn btn-light" type="reset" value="Vazgeç">
+                        </div>
                     </div>
                 </div>
             </div>

@@ -81,5 +81,11 @@ Route::prefix('admin')->group(function () {
     Route::delete('product/{id}', [ProductController::class, 'destroy'])->name('admin.products.destroy');
     Route::post('/admin/product/upload-cover-image', [ProductController::class, 'uploadCoverImage'])->name('admin.products.uploadCoverImage');
 
-
+    Route::get('brands', [BrandController::class, 'index'])->name('admin.brands.index');
+    Route::get('brand/create', [BrandController::class, 'create'])->name('admin.brands.create');
+    Route::post('product/store', [BrandController::class, 'store'])->name('admin.brands.store');
+    Route::get('brand/{id}/edit', [BrandController::class, 'edit'])->name('admin.brands.edit');
+    Route::put('brand/{id}', [BrandController::class, 'update'])->name('admin.brands.update');
+    Route::delete('brand/{id}', [BrandController::class, 'destroy'])->name('admin.brands.destroy');
+    Route::post('brand/upload-cover-image',[BrandController::class, 'uploadCoverImage'])->name('admin.brands.uploadCoverImage');
 });
