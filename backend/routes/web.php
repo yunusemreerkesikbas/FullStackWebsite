@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\BrandController;
 
 Route::get('/admin', function () {
     return view('admin.dashboard');
@@ -24,13 +26,7 @@ Route::get('/admin/blogs', function () {
 Route::get('/admin/blog/create', function () {
     return view('admin.pages.blog.add-blog');
 });
-Route::get('/admin/brands', function () {
-    return view('admin.pages.brands.brand-list');
-});
 
-Route::get('/admin/brand/create', function () {
-    return view('admin.pages.brands.add-brand');
-});
 Route::get('/admin/faqs', function () {
     return view('admin.pages.faqs.faq-list');
 });
@@ -76,4 +72,14 @@ Route::prefix('admin')->group(function () {
     Route::put('category/{id}', [CategoryController::class, 'update'])->name('admin.categories.update');
     Route::delete('category/{id}', [CategoryController::class, 'destroy'])->name('admin.categories.destroy');
     Route::post('/admin/categories/upload-cover-image', [CategoryController::class, 'uploadCoverImage'])->name('admin.categories.uploadCoverImage');
+
+    Route::get('products', [ProductController::class, 'index'])->name('admin.products.index');
+    Route::get('product/create', [ProductController::class, 'create'])->name('admin.products.create');
+    Route::post('products/store', [ProductController::class, 'store'])->name('admin.products.store');
+    Route::get('product/{id}/edit', [ProductController::class, 'edit'])->name('admin.products.edit');
+    Route::put('product/{id}', [ProductController::class, 'update'])->name('admin.products.update');
+    Route::delete('product/{id}', [ProductController::class, 'destroy'])->name('admin.products.destroy');
+    Route::post('/admin/product/upload-cover-image', [ProductController::class, 'uploadCoverImage'])->name('admin.products.uploadCoverImage');
+
+
 });

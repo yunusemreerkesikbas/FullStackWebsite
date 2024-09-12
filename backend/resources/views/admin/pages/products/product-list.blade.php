@@ -1,9 +1,14 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Yönetim Paneli')
+@section('title', 'Kategoriler - Yönetim Paneli')
+
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/owlcarousel.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/js-datatables/style.css') }}">
+@endsection
+
+@section('breadcrumb')
+    Ürünler
 @endsection
 
 @section('content')
@@ -17,8 +22,7 @@
                     <div class="card-body">
                         <div class="list-product-header">
                             <div>
-
-                                <a class="btn btn-primary" href="#!">
+                                <a class="btn btn-primary" href="{{ route('admin.products.create') }}">
                                     <i class="fa fa-plus"></i>
                                     Ürün Ekle
                                 </a>
@@ -33,43 +37,61 @@
                                             <input class="form-check-input checkbox-primary" type="checkbox">
                                         </div>
                                     </th>
-                                    <th> <span class="f-light f-w-600">Ürün</span></th>
-                                    <th> <span class="f-light f-w-600">Açıklama</span></th>
-                                    <th> <span class="f-light f-w-600">Kategori</span></th>
-                                    <th> <span class="f-light f-w-600">Durum</span></th>
-                                    <th> <span class="f-light f-w-600">İşlem</span></th>
+                                    <th>Ürün</th>
+                                    <th>Açıklama</th>
+                                    <th>Kategori</th>
+                                    <th>Durum</th>
+                                    <th>İşlem</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr class="product-removes">
-                                    <td>
-                                        <div class="form-check">
-                                            <input class="form-check-input checkbox-primary" type="checkbox">
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="product-names">
-                                            <div class="light-product-box"><img class="img-fluid" src="../assets/images/product/1.png" alt="t-shirt"></div>
-                                            <p>T-Shirts</p>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <p class="f-light">Special PriceGet at flat ₹229</p>
-                                    </td>
-                                    <td> <span class="badge badge-light-primary">Clothing</span></td>
-                                    <td> <span class="badge badge-light-success">Aktif</span></td>
-                                    <td>
-                                        <div class="product-action">
-                                            <svg>
-                                                <use href="../assets/svg/icon-sprite.svg#edit-content"></use>
-                                            </svg>
-                                            <svg>
-                                                <use href="../assets/svg/icon-sprite.svg#trash1"></use>
-                                            </svg>
-                                        </div>
-                                    </td>
-                                </tr>
+                                @foreach($products as $product)
+                                    <tr class="product-removes">
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input checkbox-primary" type="checkbox">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="product-names">
+                                                <div class="light-product-box">
+                                                    <img class="img-fluid" src="{{ asset('storage/' . $product->cover_image) }}" alt="{{ $product->name }}">
+                                                </div>
+                                                <p>{{ $product->name }}</p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p class="f-light">{{ $product->description }}</p>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-light-primary">{{ $product->parent ? $product->parent->name : 'Yok' }}</span>
+                                        </td>
+                                        <td>
+                                        <span class="badge badge-light-{{ $product->status ? 'success' : 'danger' }}">
+                                            {{ $product->status ? 'Aktif' : 'Pasif' }}
+                                        </span>
+                                        </td>
+                                        <td>
+                                            <div class="product-action">
+                                                <a href="{{ route('admin.products.edit', $product->id) }}">
+                                                    <svg>
+                                                        <use href="../assets/svg/icon-sprite.svg#edit-content"></use>
+                                                    </svg>
+                                                </a>
+                                                <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="delete-button" onclick="return confirm('Bu kategoriyi silmek istediğinizden emin misiniz?')">
+                                                        <svg>
+                                                            <use href="../assets/svg/icon-sprite.svg#trash1"></use>
+                                                        </svg>
+                                                    </button>
 
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -78,7 +100,6 @@
             </div>
         </div>
     </div>
-
 @endsection
 
 @section('js')
