@@ -4,6 +4,8 @@ use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\FaqController;
 
 Route::get('/admin', function () {
     return view('admin.dashboard');
@@ -19,21 +21,7 @@ Route::get('/admin/products', function () {
 Route::get('/admin/product/create', function () {
     return view('admin.pages.products.add-product');
 });
-Route::get('/admin/blogs', function () {
-    return view('admin.pages.blog.blog-list');
-});
 
-Route::get('/admin/blog/create', function () {
-    return view('admin.pages.blog.add-blog');
-});
-
-Route::get('/admin/faqs', function () {
-    return view('admin.pages.faqs.faq-list');
-});
-
-Route::get('/admin/faq/create', function () {
-    return view('admin.pages.faqs.add-faq');
-});
 Route::get('/admin/sliders', function () {
     return view('admin.pages.sliders.slider-list');
 });
@@ -88,4 +76,19 @@ Route::prefix('admin')->group(function () {
     Route::put('brand/{id}', [BrandController::class, 'update'])->name('admin.brands.update');
     Route::delete('brand/{id}', [BrandController::class, 'destroy'])->name('admin.brands.destroy');
     Route::post('brand/upload-cover-image',[BrandController::class, 'uploadCoverImage'])->name('admin.brands.uploadCoverImage');
+
+    Route::get('blogs', [BlogController::class, 'index'])->name('admin.blogs.index');
+    Route::get('blog/create', [BlogController::class, 'create'])->name('admin.blogs.create');
+    Route::post('blog/store', [BlogController::class, 'store'])->name('admin.blogs.store');
+    Route::get('blog/{id}/edit', [BlogController::class, 'edit'])->name('admin.blogs.edit');
+    Route::put('blog/{id}', [BlogController::class, 'update'])->name('admin.blogs.update');
+    Route::delete('blog/{id}', [BlogController::class, 'destroy'])->name('admin.blogs.destroy');
+    Route::post('blog/upload-cover-image',[BlogController::class, 'uploadCoverImage'])->name('admin.blogs.uploadCoverImage');
+
+    Route::get('faqs', [FaqController::class, 'index'])->name('admin.faqs.index');
+    Route::get('faq/create', [FaqController::class, 'create'])->name('admin.faqs.create');
+    Route::post('faq/store', [FaqController::class, 'store'])->name('admin.faqs.store');
+    Route::get('faq/{id}/edit', [FaqController::class, 'edit'])->name('admin.faqs.edit');
+    Route::put('faq/{id}', [FaqController::class, 'update'])->name('admin.faqs.update');
+    Route::delete('faq/{id}', [FaqController::class, 'destroy'])->name('admin.faqs.destroy');
 });

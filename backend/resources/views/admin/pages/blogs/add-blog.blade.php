@@ -20,12 +20,15 @@
                         <h4>Blog Yazısı Ekle</h4>
                     </div>
                     <div class="card-body add-post">
-                        <form class="row needs-validation" novalidate="">
+                        <form class="row needs-validation add-blog" novalidate="" action="{{route('admin.blogs.store')}}" method="POST" enctype="multipart/form-data">
+                            @csrf
                             <div class="col-sm-12">
                                 <div class="mb-3">
-                                    <label for="validationCustom01">Başlık:</label>
-                                    <input class="form-control" id="validationCustom01" type="text" placeholder="Başlık" required="">
-                                    <div class="valid-feedback">Looks good!</div>
+                                    <label for="name">Blog Başlığı:</label>
+                                    <input class="form-control @error('name') is-invalid @enderror" id="name" name="name" type="text" value="{{ old('name') }}" placeholder="Blog Başlığı" required="">
+                                    @error('name')
+                                    <div class="valid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
                                 <div class="email-wrapper">
@@ -70,50 +73,53 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <input type="hidden" name="description" id="description">
                                 </div>
-                                <div class="col-12">
-                                    <div class="row">
-                                        <div class="mb-3 col-sm-6">
-                                            <label for="validationCustom01">Meta Başlık:</label>
-                                            <input class="form-control" id="validationCustom01" type="text" placeholder="Kategori Adı" required="">
-                                            <div class="valid-feedback">Looks good!</div>
-                                        </div>
-                                        <div class="mb-3 col-sm-6">
-                                            <label for="validationCustom01">Meta Açıklama:</label>
-                                            <input class="form-control" id="validationCustom01" type="text" placeholder="Kategori Açıklama" required="">
-                                            <div class="valid-feedback">Looks good!</div>
-                                        </div>
-                                        <div class="mb-3 col-sm-6">
-                                            <label for="validationCustom01">Anahtar Kelimeler:</label>
-                                            <input class="form-control" id="validationCustom01" type="text" placeholder="Anahtar Kelimeler" required="">
-                                            <div class="valid-feedback">Looks good!</div>
-                                        </div>
-                                    </div>
-                                </div>
+{{--                                <div class="col-12">--}}
+{{--                                    <div class="row">--}}
+{{--                                        <div class="mb-3 col-sm-6">--}}
+{{--                                            <label for="validationCustom01">Meta Başlık:</label>--}}
+{{--                                            <input class="form-control" id="validationCustom01" type="text" placeholder="Kategori Adı" required="">--}}
+{{--                                            <div class="valid-feedback">Looks good!</div>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="mb-3 col-sm-6">--}}
+{{--                                            <label for="validationCustom01">Meta Açıklama:</label>--}}
+{{--                                            <input class="form-control" id="validationCustom01" type="text" placeholder="Kategori Açıklama" required="">--}}
+{{--                                            <div class="valid-feedback">Looks good!</div>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="mb-3 col-sm-6">--}}
+{{--                                            <label for="validationCustom01">Anahtar Kelimeler:</label>--}}
+{{--                                            <input class="form-control" id="validationCustom01" type="text" placeholder="Anahtar Kelimeler" required="">--}}
+{{--                                            <div class="valid-feedback">Looks good!</div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
                                 <div class="mb-3">
-                                    <label>İşlem Durumu:</label>
+                                    <label>Sayfada Göster:</label>
                                     <div class="m-checkbox-inline">
-                                        <label for="edo-ani">
-                                            <input class="radio_animated" id="edo-ani" type="radio" name="rdo-ani" checked="">Aktif
+                                        <label for="status_active">
+                                            <input class="radio_animated" id="status_active" type="radio" name="status" value="1" checked="">Aktif
                                         </label>
-                                        <label for="edo-ani1">
-                                            <input class="radio_animated" id="edo-ani1" type="radio" name="rdo-ani">Pasif
+                                        <label for="status_inactive">
+                                            <input class="radio_animated" id="status_inactive" type="radio" name="status" value="0">Pasif
                                         </label>
-
                                     </div>
                                 </div>
                             </div>
+                            <input type="hidden" name="cover_image" id="cover_image_path" value="{{ old('cover_image') }}">
+                            <div class="btn-showcase text-end">
+                                <button class="btn btn-primary" type="submit">Ekle</button>
+                                <input class="btn btn-light" type="reset" value="Vazgeç">
+                            </div>
 
                         </form>
-                        <form class="dropzone" id="singleFileUpload" action="/upload.php">
+                        <form class="dropzone mt-4" id="singleFileUpload" action="{{ route('admin.blogs.uploadCoverImage') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
                             <div class="m-0 dz-message needsclick"><i class="icon-cloud-up"></i>
                                 <h5 class="f-w-600 mb-0">Logo Ekle</h5>
                             </div>
                         </form>
-                        <div class="btn-showcase text-end">
-                            <button class="btn btn-primary" type="submit">Ekle</button>
-                            <input class="btn btn-light" type="reset" value="Vazgeç">
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -130,4 +136,25 @@
     <script src="{{ asset('assets/js/editors/quill.js') }}"></script>
     <script src="{{ asset('assets/js/custom-add-product4.js') }}"></script>
     <script src="{{ asset('assets/js/form-validation-custom.js') }}"></script>
+    <script>
+        Dropzone.options.singleFileUpload = {
+            paramName: "file",
+            maxFilesize: 2,
+            success: function(file, response) {
+                document.getElementById('cover_image_path').value = response.path;
+            },
+            error: function(file, response) {
+                console.log(response);
+            }
+        };
+        document.querySelector('.add-blog').addEventListener('submit', function () {
+            var editor8 = new Quill("#editor8", {
+                modules: { toolbar: "#toolbar8" },
+                theme: "snow",
+                placeholder: "Açıklama Ekle...",
+            });
+            var quillContent = editor8.root.innerHTML;
+            document.querySelector('input[name=description]').value = quillContent;
+        });
+    </script>
 @endsection

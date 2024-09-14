@@ -21,12 +21,13 @@
                         <h4>Soru Ekle</h4>
                     </div>
                     <div class="card-body add-post">
-                        <form class="row needs-validation add-faq" novalidate="" action="{{route('admin.faqs.store')}}" method="POST" enctype="multipart/form-data">
+                        <form class="row needs-validation add-faq" novalidate="" action="{{route('admin.faqs.update', $faq->id)}}" method="POST" enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
                             <div class="col-sm-12">
                                 <div class="mb-3">
                                     <label for="question">Soru</label>
-                                    <input class="form-control @error('question') is-invalid @enderror" id="question" name="question" type="text" placeholder="Soru Ekle" value="{{old('question')}}" required="">
+                                    <input class="form-control @error('question') is-invalid @enderror" id="question" name="question" type="text" placeholder="Soru Ekle" value="{{old('question', $faq->question)}}" required="">
                                     @error('question')
                                     <div class="valid-feedback">{{ $message }}</div>
                                     @enderror
@@ -74,7 +75,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <input type="hidden" name="answer" id="answer">
+                                    <input type="hidden" name="answer" id="answer" value="{{ old('answer', $faq->answer) }}>
                                 </div>
 
                             </div>
@@ -104,13 +105,17 @@
     <script src="{{ asset('assets/js/form-validation-custom.js') }}"></script>
     <script>
 
+        var quillEditor = new Quill("#editor8", {
+            modules: { toolbar: "#toolbar8" },
+            theme: "snow",
+            placeholder: "Açıklama Ekle...",
+        });
+
+        var existingDescription = document.querySelector('input[name=answer]').value;
+        quillEditor.root.innerHTML = existingDescription;
+
         document.querySelector('.add-faq').addEventListener('submit', function () {
-            var editor8 = new Quill("#editor8", {
-                modules: { toolbar: "#toolbar8" },
-                theme: "snow",
-                placeholder: "Cevap Ekle...",
-            });
-            var quillContent = editor8.root.innerHTML;
+            var quillContent = quillEditor.root.innerHTML;
             document.querySelector('input[name=answer]').value = quillContent;
         });
     </script>

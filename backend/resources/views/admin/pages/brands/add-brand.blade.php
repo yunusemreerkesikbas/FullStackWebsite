@@ -30,7 +30,7 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label>Anasayfada Göster:</label>
+                                    <label>Sayfada Göster:</label>
                                     <div class="m-checkbox-inline">
                                         <label for="status_active">
                                             <input class="radio_animated" id="status_active" type="radio" name="status" value="1" checked="">Aktif

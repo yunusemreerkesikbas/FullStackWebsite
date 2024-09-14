@@ -7,7 +7,7 @@
 @endsection
 
 @section('breadcrumb')
-    Markalar
+    Blog Yazıları
 @endsection
 
 @section('content')
@@ -16,15 +16,15 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Markalar</h4>
+                        <h4>Blog Yazıları</h4>
                     </div>
 
                     <div class="card-body">
                         <div class="list-product-header">
                             <div>
-                                <a class="btn btn-primary" href="{{ route('admin.brands.create') }}">
+                                <a class="btn btn-primary" href="{{ route('admin.blogs.create') }}">
                                     <i class="fa fa-plus"></i>
-                                    Marka Ekle
+                                    Yazı Ekle
                                 </a>
                             </div>
                         </div>
@@ -37,14 +37,14 @@
                                             <input class="form-check-input checkbox-primary" type="checkbox">
                                         </div>
                                     </th>
-                                    <th> <span class="f-light f-w-600">Logo</span></th>
+                                    <th> <span class="f-light f-w-600">Başlık</span></th>
                                     <th> <span class="f-light f-w-600">Durum</span></th>
                                     <th> <span class="f-light f-w-600">İşlem</span></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @if($brands)
-                                    @foreach($brands as $brand)
+                                @if($blogs)
+                                    @foreach($blogs as $blog)
                                         <tr class="product-removes">
                                             <td>
                                                 <div class="form-check">
@@ -53,26 +53,24 @@
                                             </td>
                                             <td>
                                                 <div class="product-names">
-                                                    <div class="light-product-box"><img class="img-fluid" src="{{ asset('storage/brands' . $brand->cover_image) }}" alt="{{ $brand->name }}"></div>
-                                                    <p>{{ $brand->name }}</p>
+                                                    <p>{{$blog->name}}</p>
                                                 </div>
                                             </td>
                                             <td>
-                                                <span class="badge badge-light-{{ $brand->status ? 'success' : 'danger' }}">
-                                                {{ $brand->status ? 'Aktif' : 'Pasif' }}
-                                        </span>
+                                                <span class="badge badge-light-{{ $blog->status ? 'success' : 'danger' }}">
+                                                {{ $blog->status ? 'Aktif' : 'Pasif' }}
                                             </td>
                                             <td>
                                                 <div class="product-action">
-                                                    <a href="{{ route('admin.brands.edit', $brand->id) }}">
+                                                    <a href="{{ route('admin.blogs.edit', $blog->id) }}">
                                                         <svg>
                                                             <use href="../assets/svg/icon-sprite.svg#edit-content"></use>
                                                         </svg>
                                                     </a>
-                                                    <form action="{{ route('admin.brands.destroy', $brand->id) }}" method="POST">
+                                                    <form action="{{ route('admin.blogs.destroy', $blog->id) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button class="delete-button" type="submit" onclick="return confirm('Bu kategoriyi silmek istediğinizden emin misiniz?')">
+                                                        <button class="delete-button" type="submit" onclick="return confirm('Bu yazıyı silmek istediğinizden emin misiniz?')">
                                                             <svg>
                                                                 <use href="../assets/svg/icon-sprite.svg#trash1"></use>
                                                             </svg>
