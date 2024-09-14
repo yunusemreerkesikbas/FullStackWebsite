@@ -84,9 +84,8 @@
                                 <button class="btn btn-primary" type="submit">Ekle</button>
                                 <input class="btn btn-light" type="reset" value="Vazgeç">
                             </div>
+                            </div>
                         </form>
-
-
                     </div>
                 </div>
             </div>

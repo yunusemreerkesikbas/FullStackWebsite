@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\ReferenceController;
 
 Route::get('/admin', function () {
     return view('admin.dashboard');
@@ -36,13 +37,7 @@ Route::get('/admin/gallery', function () {
 Route::get('/admin/gallery/create', function () {
     return view('admin.pages.gallery.add-image');
 });
-Route::get('/admin/references', function () {
-    return view('admin.pages.references.reference-list');
-});
 
-Route::get('/admin/reference/create', function () {
-    return view('admin.pages.gallery.add-reference');
-});
 Route::get('/admin/settings', function () {
     return view('admin.pages.settings.settings');
 });
@@ -91,4 +86,12 @@ Route::prefix('admin')->group(function () {
     Route::get('faq/{id}/edit', [FaqController::class, 'edit'])->name('admin.faqs.edit');
     Route::put('faq/{id}', [FaqController::class, 'update'])->name('admin.faqs.update');
     Route::delete('faq/{id}', [FaqController::class, 'destroy'])->name('admin.faqs.destroy');
+
+    Route::get('references', [ReferenceController::class, 'index'])->name('admin.references.index');
+    Route::get('reference/create', [ReferenceController::class, 'create'])->name('admin.references.create');
+    Route::post('reference/store', [ReferenceController::class, 'store'])->name('admin.references.store');
+    Route::get('reference/{id}/edit', [ReferenceController::class, 'edit'])->name('admin.references.edit');
+    Route::put('reference/{id}', [ReferenceController::class, 'update'])->name('admin.references.update');
+    Route::delete('reference/{id}', [ReferenceController::class, 'destroy'])->name('admin.references.destroy');
+    Route::post('reference/upload-cover-image',[ReferenceController::class, 'uploadCoverImage'])->name('admin.references.uploadCoverImage');
 });
