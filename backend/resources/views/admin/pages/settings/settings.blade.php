@@ -20,12 +20,18 @@
                         <h4>Ayarlar</h4>
                     </div>
                     <div class="card-body add-post">
-                        <form class="row needs-validation" novalidate="">
+                        @if(session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+                        <form class="row needs-validation add-form" novalidate="" action="{{ url('admin/settings') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
                             <div class="col-sm-12">
                                 <div class="row">
                                     <div class="col-sm-6 mb-3">
-                                        <label for="validationCustom01">Site Adı:</label>
-                                        <input class="form-control" id="validationCustom01" type="text" placeholder="Site Adı" required="">
+                                        <label for="site_name">Site Adı:</label>
+                                        <input class="form-control" id="site_name" type="text" name="site_name" value="{{ old('site_name', $setting->site_name) }}" placeholder="Site Adı" required="">
                                         <div class="valid-feedback">Looks good!</div>
                                     </div>
 
@@ -73,36 +79,40 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-6 mb-3">
-                                        <label for="validationCustom01">Instagram</label>
-                                        <input class="form-control" id="validationCustom01" type="text" placeholder="Instagram" required="">
+                                        <label for="instagram">Instagram:</label>
+                                        <input class="form-control" id="instagram" name="instagram" type="text" value="{{ old('instagram', $setting->instagram) }}" placeholder="Instagram">
+                                    </div>
+
+                                    <div class="col-sm-6 mb-3">
+                                        <label for="facebook">Facebook:</label>
+                                        <input class="form-control" id="facebook" name="facebook" type="text" value="{{ old('facebook', $setting->facebook) }}" placeholder="Facebook">
+                                    </div>
+
+                                    <div class="col-sm-6 mb-3">
+                                        <label for="twitter">Twitter:</label>
+                                        <input class="form-control" id="twitter" name="twitter" type="text" value="{{ old('twitter', $setting->twitter) }}" placeholder="Twitter">
                                     </div>
                                     <div class="col-sm-6 mb-3">
-                                        <label for="validationCustom01">Facebook</label>
-                                        <input class="form-control" id="validationCustom01" type="text" placeholder="Facebook" required="">
+                                        <label for="linkedin">Linkedin:</label>
+                                        <input class="form-control" id="linkedin" name="linkedin" type="text" value="{{ old('linkedin', $setting->linkedin) }}" placeholder="Linkedin">
+                                    </div>
+
+                                    <div class="col-sm-6 mb-3">
+                                        <label for="tel_no">Telefon Numarası</label>
+                                        <input class="form-control" id="tel_no" name="tel_no" type="number" value="{{ old('tel_no', $setting->tel_no) }}" placeholder="Telefon Numarası">
+                                    </div>
+
+                                    <div class="col-sm-6 mb-3">
+                                        <label for="wp_no">Whatsapp Numarası:</label>
+                                        <input class="form-control" id="wp_no" name="wp_no" type="number" value="{{ old('wp_no', $setting->wp_no) }}" placeholder="Whatsapp Numarası">
                                     </div>
                                     <div class="col-sm-6 mb-3">
-                                        <label for="validationCustom01">Twitter</label>
-                                        <input class="form-control" id="validationCustom01" type="text" placeholder="Twitter" required="">
+                                        <label for="email">E Posta Adresi</label>
+                                        <input class="form-control" id="email" type="email" name="email" value="{{ old('email', $setting->email) }}" placeholder="E Posta Adresi" >
                                     </div>
                                     <div class="col-sm-6 mb-3">
-                                        <label for="validationCustom01">Linkedin</label>
-                                        <input class="form-control" id="validationCustom01" type="text" placeholder="Linkedin" required="">
-                                    </div>
-                                    <div class="col-sm-6 mb-3">
-                                        <label for="validationCustom01">Telefon Numarası</label>
-                                        <input class="form-control" id="validationCustom01" type="text" placeholder="Telefon Numarası" required="">
-                                    </div>
-                                    <div class="col-sm-6 mb-3">
-                                        <label for="validationCustom01">Whatsapp Numarası</label>
-                                        <input class="form-control" id="validationCustom01" type="text" placeholder="Whatsapp Numarası" required="">
-                                    </div>
-                                    <div class="col-sm-6 mb-3">
-                                        <label for="validationCustom01">E Posta Adresi</label>
-                                        <input class="form-control" id="validationCustom01" type="text" placeholder="E Posta Adresi" required="">
-                                    </div>
-                                    <div class="col-sm-6 mb-3">
-                                        <label for="validationCustom01">Adres</label>
-                                        <input class="form-control" id="validationCustom01" type="text" placeholder="Adres" required="">
+                                        <label for="address">Adres</label>
+                                        <input class="form-control" id="address" name="address" type="text" value="{{ old('address', $setting->address) }}" placeholder="Adres" >
                                     </div>
 
                                 </div>
@@ -110,35 +120,39 @@
                                 <div class="col-12">
                                     <div class="row">
                                         <div class="mb-3 col-sm-6">
-                                            <label for="validationCustom01">Meta Başlık:</label>
-                                            <input class="form-control" id="validationCustom01" type="text" placeholder="Kategori Adı" required="">
+                                            <label for="meta_name">Meta Başlık:</label>
+                                            <input class="form-control" id="meta_title" name="meta_title" value="{{ old('meta_title', $setting->meta_title) }}" type="text" placeholder="Kategori Adı" >
                                             <div class="valid-feedback">Looks good!</div>
                                         </div>
                                         <div class="mb-3 col-sm-6">
-                                            <label for="validationCustom01">Meta Açıklama:</label>
-                                            <input class="form-control" id="validationCustom01" type="text" placeholder="Kategori Açıklama" required="">
+                                            <label for="meta_description">Meta Açıklama:</label>
+                                            <input class="form-control" id="meta_description" name="meta_description" value="{{ old('meta_description', $setting->meta_description) }}" type="text" placeholder="Meta Açıklama" >
                                             <div class="valid-feedback">Looks good!</div>
                                         </div>
                                         <div class="mb-3 col-sm-6">
-                                            <label for="validationCustom01">Anahtar Kelime:</label>
-                                            <input class="form-control" id="validationCustom01" type="text" placeholder="Anahtar Kelimeler" required="">
+                                            <label for="meta_keywords">Anahtar Kelime:</label>
+                                            <input class="form-control" id="meta_keywords" name="meta_keywords" value="{{ old('meta_keywords', $setting->meta_keywords) }}" type="text" placeholder="Anahtar Kelimeler" >
                                             <div class="valid-feedback">Looks good!</div>
                                         </div>
                                     </div>
                                 </div>
 
                             </div>
+                            <input type="hidden" name="site_description" id="site_description" value="{{ old('site_description', $setting->site_description) }}">
+                            <input type="hidden" name="cover_image" id="cover_image_path" value="{{ old('cover_image', $setting->cover_image) }}">
+                            <div class="btn-showcase text-end mb-3">
+                                <button class="btn btn-primary" type="submit">Ekle</button>
+                                <input class="btn btn-light" type="reset" value="Vazgeç">
+                            </div>
 
                         </form>
-                        <form class="dropzone" id="singleFileUpload" action="/upload.php">
+                        <form class="dropzone" id="singleFileUpload" action="{{ route('admin.settings.uploadCoverImage') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
                             <div class="m-0 dz-message needsclick"><i class="icon-cloud-up"></i>
                                 <h5 class="f-w-600 mb-0">Logo Ekle</h5>
                             </div>
                         </form>
-                        <div class="btn-showcase text-end">
-                            <button class="btn btn-primary" type="submit">Ekle</button>
-                            <input class="btn btn-light" type="reset" value="Vazgeç">
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -155,4 +169,30 @@
     <script src="{{ asset('assets/js/editors/quill.js') }}"></script>
     <script src="{{ asset('assets/js/custom-add-product4.js') }}"></script>
     <script src="{{ asset('assets/js/form-validation-custom.js') }}"></script>
+    <script>
+        Dropzone.options.singleFileUpload = {
+            paramName: "file",
+            maxFilesize: 2,
+            success: function(file, response) {
+                document.getElementById('cover_image_path').value = response.path;
+            },
+            error: function(file, response) {
+                console.log(response);
+            }
+        };
+        var editor8 = new Quill("#editor8", {
+            modules: { toolbar: "#toolbar8" },
+            theme: "snow",
+            placeholder: "Açıklama Ekle...",
+        });
+
+        var existingDescription = document.querySelector('input[name=site_description]').value;
+        editor8.root.innerHTML = existingDescription;
+
+        document.querySelector('.add-form').addEventListener('submit', function () {
+            var quillContent = editor8.root.innerHTML;
+            document.querySelector('input[name=site_description]').value = quillContent;
+        });
+
+    </script>
 @endsection

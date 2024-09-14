@@ -7,6 +7,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ReferenceController;
+use App\Http\Controllers\SettingsController;
 
 Route::get('/admin', function () {
     return view('admin.dashboard');
@@ -38,9 +39,6 @@ Route::get('/admin/gallery/create', function () {
     return view('admin.pages.gallery.add-image');
 });
 
-Route::get('/admin/settings', function () {
-    return view('admin.pages.settings.settings');
-});
 Route::get('/admin/users', function () {
     return view('admin.pages.users.user-list');
 });
@@ -94,4 +92,8 @@ Route::prefix('admin')->group(function () {
     Route::put('reference/{id}', [ReferenceController::class, 'update'])->name('admin.references.update');
     Route::delete('reference/{id}', [ReferenceController::class, 'destroy'])->name('admin.references.destroy');
     Route::post('reference/upload-cover-image',[ReferenceController::class, 'uploadCoverImage'])->name('admin.references.uploadCoverImage');
+
+    Route::match(['get', 'post'], 'settings', [SettingsController::class, 'index'])->name('admin.settings.index');
+    Route::post('settings/upload-cover-image',[SettingsController::class, 'uploadCoverImage'])->name('admin.settings.uploadCoverImage');
+
 });
