@@ -8,6 +8,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ReferenceController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\UserController;
 
 Route::get('/admin', function () {
     return view('admin.dashboard');
@@ -39,9 +40,6 @@ Route::get('/admin/gallery/create', function () {
     return view('admin.pages.gallery.add-image');
 });
 
-Route::get('/admin/users', function () {
-    return view('admin.pages.users.user-list');
-});
 
 Route::resource('categories', CategoryController::class);
 
@@ -96,4 +94,10 @@ Route::prefix('admin')->group(function () {
     Route::match(['get', 'post'], 'settings', [SettingsController::class, 'index'])->name('admin.settings.index');
     Route::post('settings/upload-cover-image',[SettingsController::class, 'uploadCoverImage'])->name('admin.settings.uploadCoverImage');
 
+    Route::get('users', [UserController::class, 'index'])->name('admin.users.index');
+    Route::get('user/create', [UserController::class, 'create'])->name('admin.users.create');
+    Route::post('user/store', [UserController::class, 'store'])->name('admin.users.store');
+    Route::get('user/{id}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
+    Route::put('user/{id}', [UserController::class, 'update'])->name('admin.users.update');
+    Route::delete('user/{id}', [UserController::class, 'destroy'])->name('admin.users.destroy');
 });

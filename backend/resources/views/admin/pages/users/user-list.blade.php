@@ -17,7 +17,7 @@
                     <div class="card-body">
                         <div class="list-product-header">
                             <div>
-                                <a class="btn btn-primary" href="#!">
+                                <a class="btn btn-primary" href="{{ route('admin.users.create') }}">
                                     <i class="fa fa-plus"></i>
                                     Kullanıcı Ekle
                                 </a>
@@ -39,30 +39,43 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr class="product-removes">
-                                    <td>
-                                        <div class="form-check">
-                                            <input class="form-check-input checkbox-primary" type="checkbox">
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="product-names">
-                                            <p>Admin</p>
-                                        </div>
-                                    </td>
-                                    <td> <span class="">admin@admin.com</span></td>
-                                    <td> <span class="badge badge-light-primary">Admin</span></td>
-                                    <td>
-                                        <div class="product-action">
-                                            <svg>
-                                                <use href="../assets/svg/icon-sprite.svg#edit-content"></use>
-                                            </svg>
-                                            <svg>
-                                                <use href="../assets/svg/icon-sprite.svg#trash1"></use>
-                                            </svg>
-                                        </div>
-                                    </td>
-                                </tr>
+                                @if($users)
+                                    @foreach($users as $user)
+                                        <tr class="product-removes">
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input checkbox-primary" type="checkbox">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="product-names">
+                                                    <p>{{ $user->name }}</p>
+                                                </div>
+                                            </td>
+                                            <td> <span class="">{{ $user->email }}</span></td>
+                                            <td> <span class="badge badge-light-primary">{{ $user->role }}</span></td>
+                                            <td>
+                                                <div class="product-action">
+                                                    <a href="{{ route('admin.users.edit', $user->id) }}">
+                                                        <svg>
+                                                            <use href="../assets/svg/icon-sprite.svg#edit-content"></use>
+                                                        </svg>
+                                                    </a>
+                                                    <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="delete-button" onclick="return confirm('Bu kategoriyi silmek istediğinizden emin misiniz?')">
+                                                            <svg>
+                                                                <use href="../assets/svg/icon-sprite.svg#trash1"></use>
+                                                            </svg>
+                                                        </button>
+
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
 
                                 </tbody>
                             </table>
