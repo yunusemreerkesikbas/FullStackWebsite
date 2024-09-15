@@ -23,7 +23,10 @@
                 </div>
             </form>
             <div class="header-logo-wrapper col-auto p-0">
-                <div class="logo-wrapper"><a href="index.html"><img class="img-fluid" src="../assets/images/logo/logo.png" alt=""></a></div>
+                <div class="logo-wrapper"><a href="{{ url('/admin') }}">
+                        <img class="img-fluid" src="{{ asset('images/logo/logo.png') }}" alt="">
+                    </a>
+                </div>
                 <div class="toggle-sidebar">
                     <svg class="stroke-icon sidebar-toggle status_toggle middle">
                         <use href="../../assets/svg/icon-sprite.svg#toggle-icon"></use>
