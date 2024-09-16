@@ -62,7 +62,7 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'status' => 'required|boolean',
+            'status' => 'nullable|boolean',
             'parent_id' => 'nullable|exists:categories,id',
             'description' => 'nullable|string',
             'meta_title' => 'nullable|string|max:255',
@@ -80,10 +80,8 @@ class CategoryController extends Controller
         $category->meta_title = $request->meta_title;
         $category->meta_description = $request->meta_description;
 
-        if ($request->hasFile('cover_image')) {
-            $image = $request->file('cover_image');
-            $path = $image->store('uploads/cover_images', 'public');
-            $category->cover_image = $path;
+        if ($request->cover_image) {
+            $category->cover_image = $request->cover_image;
         }
 
         $category->save();

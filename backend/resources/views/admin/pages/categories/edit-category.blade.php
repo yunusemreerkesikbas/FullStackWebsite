@@ -20,13 +20,13 @@
                     <div class="card-header">
                         <h4>{{$category->name}} Düzenle</h4>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body add-post">
                         <form action="{{ route('admin.categories.update', $category->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="mb-3">
                                 <label for="name">Kategori Adı:</label>
-                                <input class="form-control" id="name" name="name" type="text" value="{{ $category->name }}" required>
+                                <input class="form-control" id="name" name="name" type="text" value="{{ $category->name }}">
                             </div>
                             <div class="mb-3">
                                 <label>Anasayfada Göster:</label>
@@ -50,12 +50,13 @@
                                     @endforeach
                                 </select>
                             </div>
-                                <div class="email-wrapper">
-                                    <div class="theme-form">
-                                        <div class="mb-3">
-                                            <label class="w-100">Açıklama:</label>
-                                            <div class="toolbar-box">
-                                                <div id="toolbar8"><span class="ql-formats">
+                            <div class="email-wrapper">
+                                <div class="theme-form">
+                                    <div class="mb-3">
+                                        <label class="w-100">Açıklama:</label>
+                                        <div class="toolbar-box">
+                                            <div id="toolbar8"><span class="ql-formats">
+                                                    <!-- Quill toolbar ayarları -->
                                     <select class="ql-size">
                                       <option value="small">Small</option>
                                       <option selected="">Normal</option>
@@ -79,22 +80,13 @@
                                     <button class="ql-video">Video</button>
                                     <select class="ql-color"></select>
                                     <select class="ql-background"></select></span>
-                                                    <!-- Add more options here--><span class="ql-formats">
-                                    <button class="ql-blockquote">Blockquote</button>
-                                    <button class="ql-code-block"></button></span><span class="ql-formats">
-                                    <button class="ql-align" value=""></button>
-                                    <button class="ql-align" value="center"></button>
-                                    <button class="ql-align" value="right"></button>
-                                    <button class="ql-align" value="justify"></button></span><span class="ql-formats">
-                                    <button class="ql-clean"></button></span>
-                                                </div>
-                                                <div id="editor8">
-                                                    {{ $category->description }}
-                                                </div>
                                             </div>
+                                            <div id="editor8"></div>
                                         </div>
                                     </div>
                                 </div>
+                                <input type="hidden" name="description" id="description" value="{{ old('description', $category->description) }}">
+                            </div>
                             <div class="mb-3">
                                 <label>Meta Başlık:</label>
                                 <input class="form-control" name="meta_title" type="text" value="{{ $category->meta_title }}">
@@ -103,15 +95,16 @@
                                 <label>Meta Açıklama:</label>
                                 <input class="form-control" name="meta_description" type="text" value="{{ $category->meta_description }}">
                             </div>
-                            <div class="mb-3">
-                                <label>Kapak Resmi:</label>
-                                <input type="file" name="cover_image" class="form-control">
-                                @if($category->cover_image)
-                                    <img src="{{ asset('storage/' . $category->cover_image) }}" alt="{{ $category->name }}" width="100" class="mt-2">
-                                @endif
-                            </div>
+                            <input type="hidden" name="cover_image" id="cover_image_path" value="{{ old('cover_image', $category->cover_image) }}">
+
                             <button class="btn btn-primary" type="submit">Güncelle</button>
                             <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary">Vazgeç</a>
+                        </form>
+                        <form class="dropzone mt-4" id="singleFileUpload" action="{{ route('admin.categories.uploadCoverImage') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="m-0 dz-message needsclick"><i class="icon-cloud-up"></i>
+                                <h5 class="f-w-600 mb-0">Kapak Resmi Güncelle</h5>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -128,4 +121,30 @@
     <script src="{{ asset('assets/js/editors/quill.js') }}"></script>
     <script src="{{ asset('assets/js/custom-add-product4.js') }}"></script>
     <script src="{{ asset('assets/js/form-validation-custom.js') }}"></script>
+    <script>
+        Dropzone.options.singleFileUpload = {
+            paramName: "file",
+            maxFilesize: 2,
+            success: function(file, response) {
+                document.getElementById('cover_image_path').value = response.path;
+            },
+            error: function(file, response) {
+                console.log(response);
+            }
+        };
+
+        var quillEditor = new Quill("#editor8", {
+            modules: { toolbar: "#toolbar8" },
+            theme: "snow",
+            placeholder: "Açıklama Ekle...",
+        });
+
+        var existingDescription = document.querySelector('input[name=description]').value;
+        quillEditor.root.innerHTML = existingDescription;
+
+        document.querySelector('.add-post').addEventListener('submit', function () {
+            var quillContent = quillEditor.root.innerHTML;
+            document.querySelector('input[name=description]').value = quillContent;
+        });
+    </script>
 @endsection

@@ -61,7 +61,9 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <p class="f-light">{{ $category->description }}</p>
+                                            <p class="f-light">
+                                                {!! $category->description !!}
+                                            </p>
                                         </td>
                                         <td>
                                             <span class="badge badge-light-primary">{{ $category->parent ? $category->parent->name : 'Yok' }}</span>

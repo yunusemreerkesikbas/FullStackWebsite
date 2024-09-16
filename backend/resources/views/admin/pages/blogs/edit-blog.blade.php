@@ -134,7 +134,6 @@
     <script src="{{ asset('assets/js/custom-add-product4.js') }}"></script>
     <script src="{{ asset('assets/js/form-validation-custom.js') }}"></script>
     <script>
-        // Dropzone için ayarları
         Dropzone.options.singleFileUpload = {
             paramName: "file",
             maxFilesize: 2,
@@ -146,18 +145,15 @@
             }
         };
 
-        // Quill editörünü başlat ve mevcut açıklamayı yükle
         var quillEditor = new Quill("#editor8", {
             modules: { toolbar: "#toolbar8" },
             theme: "snow",
             placeholder: "Açıklama Ekle...",
         });
 
-        // Backend'den gelen açıklamayı Quill'e yükle
         var existingDescription = document.querySelector('input[name=description]').value;
         quillEditor.root.innerHTML = existingDescription;
 
-        // Form submit edilmeden önce Quill içeriğini gizli input'a aktar
         document.querySelector('.add-blog').addEventListener('submit', function () {
             var quillContent = quillEditor.root.innerHTML;
             document.querySelector('input[name=description]').value = quillContent;

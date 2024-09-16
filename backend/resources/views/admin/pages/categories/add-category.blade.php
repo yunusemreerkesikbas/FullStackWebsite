@@ -20,7 +20,7 @@
                     <div class="card-header">
                         <h4>Kategori Ekle</h4>
                     </div>
-                    <div class="card-body add-post">
+                    <div class="card-body add-form">
                         <form class="row needs-validation" novalidate="" action="{{ route('admin.categories.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="col-sm-12">
@@ -109,7 +109,7 @@
                                 </div>
                             </div>
                             <input type="hidden" name="cover_image" id="cover_image_path" value="{{ old('cover_image') }}">
-
+                            <input type="hidden" name="description" id="description">
                             <div class="btn-showcase text-end">
                                 <button class="btn btn-primary" type="submit">Ekle</button>
                                 <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary">Vazgeç</a>
@@ -142,18 +142,24 @@
     <script src="{{ asset('assets/js/custom-add-product4.js') }}"></script>
     <script src="{{ asset('assets/js/form-validation-custom.js') }}"></script>
     <script>
-        // Dropzone.js ayarları
         Dropzone.options.singleFileUpload = {
-            paramName: "file", // Dosyanın taşınacağı parametre ismi
-            maxFilesize: 2, // MB cinsinden maksimum dosya boyutu
+            paramName: "file",
+            maxFilesize: 2,
             success: function(file, response) {
-                // Dosya yükleme başarılı olursa gelen path değerini hidden input'a set ediyoruz
                 document.getElementById('cover_image_path').value = response.path;
             },
             error: function(file, response) {
-                // Hata durumunda yapılacak işlemler
                 console.log(response);
             }
         };
+        document.querySelector('.add-form').addEventListener('submit', function () {
+            var editor8 = new Quill("#editor8", {
+                modules: { toolbar: "#toolbar8" },
+                theme: "snow",
+                placeholder: "Açıklama Ekle...",
+            });
+            var quillContent = editor8.root.innerHTML;
+            document.querySelector('input[name=description]').value = quillContent;
+        });
     </script>
 @endsection
