@@ -21,6 +21,7 @@ class Product extends Model
         'meta_title',
         'meta_description',
         'cover_image',
+        'status',
     ];
 
     public function category()

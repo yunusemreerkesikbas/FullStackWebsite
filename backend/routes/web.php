@@ -9,21 +9,17 @@ use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ReferenceController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\LoginController;
 
-Route::get('/admin', function () {
-    return view('admin.dashboard');
-});
+Route::get('admin/login', [LoginController::class, 'showLoginForm'])->name('login');;
+Route::post('admin/login', [LoginController::class, 'login'])->name('admin.auth.login');
+Route::post('admin/logout', [LoginController::class, 'logout'])->name('admin.auth.logout');
 
 Route::get('/admin/about', function () {
     return view('about');
 });
 
-Route::get('/admin/products', function () {
-    return view('admin.pages.products.product-list');
-});
-Route::get('/admin/product/create', function () {
-    return view('admin.pages.products.add-product');
-});
+
 
 Route::get('/admin/sliders', function () {
     return view('admin.pages.sliders.slider-list');
@@ -41,9 +37,11 @@ Route::get('/admin/gallery/create', function () {
 });
 
 
-Route::resource('categories', CategoryController::class);
 
-Route::prefix('admin')->group(function () {
+Route::middleware('auth')->prefix('admin')->group(function () {
+    Route::get('/', function () {
+        return view('admin.dashboard');
+    })->name('admin.dashboard');
     Route::get('categories', [CategoryController::class, 'index'])->name('admin.categories.index');
     Route::get('category/create', [CategoryController::class, 'create'])->name('admin.categories.create');
     Route::post('category/store', [CategoryController::class, 'store'])->name('admin.categories.store');

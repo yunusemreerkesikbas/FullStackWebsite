@@ -55,13 +55,13 @@
                                         <td>
                                             <div class="product-names">
                                                 <div class="light-product-box">
-                                                    <img class="img-fluid" src="{{ asset('storage/' . $product->cover_image) }}" alt="{{ $product->name }}">
+                                                    <img class="img-fluid" src="{{ $product->cover_image != null ? asset('storage/' . $product->cover_image) : asset('assets/images/no_image.png') }}" alt="{{ $product->name }}">
                                                 </div>
                                                 <p>{{ $product->name }}</p>
                                             </div>
                                         </td>
                                         <td>
-                                            <p class="f-light">{{ $product->description }}</p>
+                                            <p class="f-light">{!! $product->description !!}</p>
                                         </td>
                                         <td>
                                             <span class="badge badge-light-primary">{{ $product->parent ? $product->parent->name : 'Yok' }}</span>

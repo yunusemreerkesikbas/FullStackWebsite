@@ -8003,6 +8003,7 @@ a.badge:hover.badge-dark:hover {
 }
 
 .badge {
+    font-size: 14px;
   padding: 0.25em 0.5em;
   font-family: "Outfit", sans-serif, sans-serif;
   font-weight: 500;
@@ -20768,8 +20769,8 @@ input[type=number] {
   gap: 15px;
 }
 .product-names .light-product-box {
-  min-width: 49px;
-  height: 49px;
+  min-width: 100px;
+  height: 100px;
   border-radius: 3px;
   background-color: var(--chart-progress-light);
   display: -webkit-box;
@@ -20783,7 +20784,7 @@ input[type=number] {
           align-items: center;
 }
 .product-names .light-product-box img {
-  height: 26px;
+    height:100%;
 }
 
 .product-action {

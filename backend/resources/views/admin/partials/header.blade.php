@@ -66,7 +66,14 @@
                         </div>
                         <ul class="profile-dropdown onhover-show-div">
                             <li><a href="{{ url('/admin/settings') }}"><i data-feather="settings"></i><span>Settings</span></a></li>
-                            <li><a href="{{ url('/admin/logout') }}"><i data-feather="log-in"> </i><span>Log out</span></a></li>
+                            <li>
+                                <form id="logout-form" action="{{ route('admin.auth.logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                                <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    <i data-feather="log-in"></i><span>Log out</span>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 </ul>

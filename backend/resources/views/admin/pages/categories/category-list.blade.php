@@ -55,7 +55,7 @@
                                         <td>
                                             <div class="product-names">
                                                 <div class="light-product-box">
-                                                    <img class="img-fluid" src="{{ asset('storage/' . $category->cover_image) }}" alt="{{ $category->name }}">
+                                                    <img class="img-fluid" src="{{ $category->cover_image != null ? asset('storage/' . $category->cover_image) : asset('assets/images/no_image.png') }}" alt="{{ $category->name }}">
                                                 </div>
                                                 <p>{{ $category->name }}</p>
                                             </div>

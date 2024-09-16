@@ -160,7 +160,7 @@
                                 </div>
                             </div>
                             <input type="hidden" name="cover_image" id="cover_image_path" value="{{ old('cover_image') }}">
-
+                            <input type="hidden" name="description" id="description">
                             <div class="btn-showcase text-end">
                                 <button class="btn btn-primary" type="submit">Ekle</button>
                                 <a href="{{ route('admin.products.index') }}" class="btn btn-secondary">Vazgeç</a>
@@ -204,6 +204,15 @@
                 console.log(response);
             }
         };
+        document.querySelector('.add-post').addEventListener('submit', function () {
+            var editor8 = new Quill("#editor8", {
+                modules: { toolbar: "#toolbar8" },
+                theme: "snow",
+                placeholder: "Açıklama Ekle...",
+            });
+            var quillContent = editor8.root.innerHTML;
+            document.querySelector('input[name=description]').value = quillContent;
+        });
     </script>
 @endsection
 

@@ -82,11 +82,37 @@
                                     <div class="mb-3">
                                         <label class="w-100">Açıklama:</label>
                                         <div class="toolbar-box">
-                                            <div id="toolbar8"></div>
-                                            <div id="editor8">{{ old('description', $product->description) }}</div>
+                                            <div id="toolbar8"><span class="ql-formats">
+                                                    <!-- Quill toolbar ayarları -->
+                                    <select class="ql-size">
+                                      <option value="small">Small</option>
+                                      <option selected="">Normal</option>
+                                      <option value="large">Large</option>
+                                      <option value="huge">Huge</option>
+                                    </select></span><span class="ql-formats">
+                                    <button class="ql-bold">Bold</button>
+                                    <button class="ql-italic">Italic</button>
+                                    <button class="ql-underline">Underline</button>
+                                    <button class="ql-strike">Strike</button>
+                                    <button class="ql-script" value="sub"></button>
+                                    <button class="ql-script" value="super"></button></span><span class="ql-formats">
+                                    <button class="ql-header" value="1"></button>
+                                    <button class="ql-header" value="2"></button></span><span class="ql-formats">
+                                    <button class="ql-list" value="ordered">List</button>
+                                    <button class="ql-list" value="bullet">Bullet</button>
+                                    <button class="ql-indent" value="-1"></button>
+                                    <button class="ql-indent" value="+1"></button></span><span class="ql-formats">
+                                    <button class="ql-link">Link</button>
+                                    <button class="ql-image">Image</button>
+                                    <button class="ql-video">Video</button>
+                                    <select class="ql-color"></select>
+                                    <select class="ql-background"></select></span>
+                                            </div>
+                                            <div id="editor8"></div>
                                         </div>
                                     </div>
                                 </div>
+                                <input type="hidden" name="description" id="description" value="{{ old('description', $product->description) }}">
                             </div>
 
                             <div class="mb-3 col-sm-6">
@@ -172,6 +198,19 @@
                 console.log(response);
             }
         };
+        var quillEditor = new Quill("#editor8", {
+            modules: { toolbar: "#toolbar8" },
+            theme: "snow",
+            placeholder: "Açıklama Ekle...",
+        });
+
+        var existingDescription = document.querySelector('input[name=description]').value;
+        quillEditor.root.innerHTML = existingDescription;
+
+        document.querySelector('.add-post').addEventListener('submit', function () {
+            var quillContent = quillEditor.root.innerHTML;
+            document.querySelector('input[name=description]').value = quillContent;
+        });
     </script>
 @endsection
 

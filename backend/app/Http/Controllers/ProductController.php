@@ -34,6 +34,7 @@ class ProductController extends Controller
             'quantity' => 'required|integer|min:0',
             'price' => 'required|numeric|min:0',
             'cover_image' => 'nullable|string',
+            'status' => 'nullable|boolean',
         ]);
 
         $product = new Product();
@@ -47,6 +48,7 @@ class ProductController extends Controller
         $product->sku = $request->sku;
         $product->quantity = $request->quantity;
         $product->price = $request->price;
+        $product->status = $request->status;
 
         if ($request->hasFile('cover_image')) {
             $imagePath = $request->file('cover_image')->store('uploads/products', 'public');
@@ -69,15 +71,16 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'category_id' => 'required|exists:categories,id',
+            'category_id' => 'nullable|exists:categories,id',
             'description' => 'nullable|string',
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string|max:255',
-            'stock_status' => 'required|string',
+            'stock_status' => 'nullable|string',
             'sku' => 'nullable|string|max:100',
-            'quantity' => 'required|integer|min:0',
-            'price' => 'required|numeric|min:0',
+            'quantity' => 'nullable|integer|min:0',
+            'price' => 'nullable|numeric|min:0',
             'cover_image' => 'nullable|string',
+            'status' => 'nullable|boolean',
         ]);
 
         $product = Product::findOrFail($id);
@@ -91,6 +94,7 @@ class ProductController extends Controller
         $product->sku = $request->sku;
         $product->quantity = $request->quantity;
         $product->price = $request->price;
+        $product->status = $request->status;
 
         if ($request->cover_image) {
             $product->cover_image = $request->cover_image;
