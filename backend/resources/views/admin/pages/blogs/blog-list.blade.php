@@ -70,7 +70,7 @@
                                                     <form action="{{ route('admin.blogs.destroy', $blog->id) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button class="delete-button" type="submit" onclick="return confirm('Bu yazıyı silmek istediğinizden emin misiniz?')">
+                                                        <button class="delete-button" type="submit">
                                                             <svg>
                                                                 <use href="../assets/svg/icon-sprite.svg#trash1"></use>
                                                             </svg>
@@ -98,4 +98,5 @@
     <script src="{{ asset('assets/js/js-datatables/simple-datatables@latest.js') }}"></script>
     <script src="{{ asset('assets/js/custom-list-product.js') }}"></script>
     <script src="{{ asset('assets/js/ecommerce.js') }}"></script>
+
 @endsection

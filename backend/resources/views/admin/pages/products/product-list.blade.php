@@ -81,7 +81,7 @@
                                                 <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="delete-button" onclick="return confirm('Bu kategoriyi silmek istediğinizden emin misiniz?')">
+                                                    <button type="submit" class="delete-button">
                                                         <svg>
                                                             <use href="../assets/svg/icon-sprite.svg#trash1"></use>
                                                         </svg>

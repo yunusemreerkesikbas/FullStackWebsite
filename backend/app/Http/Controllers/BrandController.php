@@ -37,7 +37,7 @@ class BrandController extends Controller
 
         $brand->save();
 
-        return redirect()->route('admin.brands.index')->with('success','Markalar Başarıyla Eklendi');
+        return redirect()->route('admin.brands.index')->with('success',$brand->name . '  Başarıyla Eklendi');
 
     }
     public function edit($id)
@@ -62,7 +62,7 @@ class BrandController extends Controller
             $brand->cover_image = $request->cover_image;
         }
         $brand->save();
-        return redirect()->route('admin.brands.index')->with('success','Markalar Baaşarıyla Güncellendi');
+        return redirect()->route('admin.brands.index')->with('success', $brand->name . ' Başarıyla Güncellendi');
     }
     public function destroy($id)
     {
@@ -73,7 +73,7 @@ class BrandController extends Controller
         }
         $brand->delete();
 
-        return redirect()->route('admin.brands.index')->with('success','Markalar Başarıyla Silindi');
+        return redirect()->route('admin.brands.index')->with('success', $brand->name .' Başarıyla Silindi');
     }
 
     public function uploadCoverImage(Request $request)

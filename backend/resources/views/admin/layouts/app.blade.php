@@ -70,7 +70,7 @@
     <script src="{{ asset('assets/js/header-slick.js') }}"></script>
     <script src="{{ asset('assets/js/notify/bootstrap-notify.min.js') }}"></script>
     <script src="{{ asset('assets/js/dashboard/default.js') }}"></script>
-    <script src="{{ asset('assets/js/notify/index.js') }}"></script>
+{{--    <script src="{{ asset('assets/js/notify/index.js') }}"></script>--}}
     <script src="{{ asset('assets/js/datatable/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/js/datatable/datatables/datatable.custom.js') }}"></script>
     <script src="{{ asset('assets/js/datatable/datatables/datatable.custom1.js') }}"></script>
@@ -85,8 +85,56 @@
     <script src="{{ asset('assets/js/animation/wow/wow.min.js') }}"></script>
     <script src="{{ asset('assets/js/script.js') }}"></script>
     <script src="{{ asset('assets/js/script1.js') }}"></script>
-{{--    <script src="{{ asset('assets/js/theme-customizer/customizer.js') }}"></script>--}}
+    <script src="{{ asset('assets/js/sweet-alert/sweetalert.min.js') }}"></script>
+    <script src="{{ asset('assets/js/height-equal.js') }}"></script>
     <script>new WOW().init();</script>
+    @if(session('success') || session('error'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                });
+
+                Toast.fire({
+                    icon: '{{ session('success') ? 'success' : 'error' }}',
+                    title: '{{ session('success') ?? session('error') }}'
+                });
+            });
+        </script>
+    @endif
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const deleteButtons = document.querySelectorAll('.delete-button');
+
+            deleteButtons.forEach(function (button) {
+                button.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const form = this.closest('form');
+                    Swal.fire({
+                        title: "Silmek istediğinize emin misiniz?",
+                        text: "Bu işlemi geri alamazsınız!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Evet, sil!",
+                        cancelButtonText: "Hayır, vazgeç!",
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
+                    });
+                });
+            });
+        });
+
+    </script>
 
     @yield('js')
 </body>

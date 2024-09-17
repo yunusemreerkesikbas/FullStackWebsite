@@ -48,7 +48,7 @@ class CategoryController extends Controller
 
         $category->save();
 
-        return redirect()->route('admin.categories.index')->with('success', 'Kategori başarıyla eklendi.');
+        return redirect()->route('admin.categories.index')->with('success', $category->name .' başarıyla eklendi.');
     }
 
     public function edit($id)
@@ -86,7 +86,7 @@ class CategoryController extends Controller
 
         $category->save();
 
-        return redirect()->route('admin.categories.index')->with('success', 'Kategori başarıyla güncellendi.');
+        return redirect()->route('admin.categories.index')->with('success', $category->name .' başarıyla güncellendi.');
     }
     public function destroy($id)
     {
@@ -99,7 +99,7 @@ class CategoryController extends Controller
 
         $category->delete();
 
-        return redirect()->route('admin.categories.index')->with('success', 'Kategori başarıyla silindi.');
+        return redirect()->route('admin.categories.index')->with('success', $category->name . ' başarıyla silindi.');
     }
 
     public function uploadCoverImage(Request $request)
@@ -110,7 +110,7 @@ class CategoryController extends Controller
 
         if ($request->hasFile('file')) {
             $file = $request->file('file');
-            $path = $file->store('uploads/cover_images', 'public');
+            $path = $file->store('uploads/categories', 'public');
 
             return response()->json(['path' => $path], 200);
         }

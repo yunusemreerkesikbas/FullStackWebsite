@@ -39,7 +39,7 @@ class BlogController extends Controller
         }
         $blog->save();
 
-        return redirect()->route('admin.blogs.index')->with('success', 'Blog başarıyla yüklendi');
+        return redirect()->route('admin.blogs.index')->with('success', $blog->name . ' başarıyla yüklendi');
     }
 
     public function edit($id)
@@ -76,7 +76,7 @@ class BlogController extends Controller
         $blog->save();
 
         // Redirect with success message
-        return redirect()->route('admin.blogs.index')->with('success', 'Blog başarıyla güncellendi');
+        return redirect()->route('admin.blogs.index')->with('success', $blog->name . ' başarıyla güncellendi');
     }
 
 
@@ -87,7 +87,7 @@ class BlogController extends Controller
             \Storage::disk('public')->delete($blog->cover_image);
         }
         $blog->delete();
-        return redirect()->route('admin.blogs.index')->with('success', 'Blog yazısı başarıyla silindi');
+        return redirect()->route('admin.blogs.index')->with('success', $blog->name . ' yazısı başarıyla silindi');
     }
 
     public function uploadCoverImage(Request $request)

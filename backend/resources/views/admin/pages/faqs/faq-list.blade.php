@@ -38,7 +38,7 @@
                                                 <form action="{{ route('admin.faqs.destroy', $faq->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button class="delete-button" type="submit" onclick="return confirm('Bu soruyu silmek istediğinizden emin misiniz?')">
+                                                    <button class="delete-button" type="submit">
                                                         <svg>
                                                             <use href="../assets/svg/icon-sprite.svg#trash1"></use>
                                                         </svg>
