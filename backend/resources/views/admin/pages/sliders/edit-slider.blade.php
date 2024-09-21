@@ -8,7 +8,7 @@
 @endsection
 
 @section('breadcrumb')
-    Slider Ekle
+    Slider Düzenle
 @endsection
 
 @section('content')
@@ -17,23 +17,24 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Slider Ekle</h4>
+                        <h4>{{$slider->title}} Düzenle</h4>
                     </div>
                     <div class="card-body add-post">
-                        <form class="row needs-validation" novalidate="" action="{{ route('admin.sliders.store') }}" method="POST" enctype="multipart/form-data">
+                        <form class="row needs-validation" novalidate="" action="{{ route('admin.sliders.update', $slider->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
                             <div class="col-sm-12">
                                 <div class="row">
                                     <div class="col-sm-6 mb-3">
                                         <label for="title">Başlık:</label>
-                                        <input class="form-control @error('name') is-invalid @enderror" id="title" name="title" type="text" placeholder="Başlık" required="">
+                                        <input class="form-control @error('name') is-invalid @enderror" id="title" name="title" type="text" placeholder="Başlık" value="{{ old('title', $slider->title) }}" required="">
                                         @error('name')
                                         <div class="valid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="col-sm-6 mb-3">
                                         <label for="display_order">Görüntülenme Sırası:</label>
-                                        <input class="form-control @error('display_order') is-invalid @enderror" id="display_order" name="display_order" type="number" placeholder="Sıra No" required="">
+                                        <input class="form-control @error('display_order') is-invalid @enderror" id="display_order" name="display_order" value="{{ old('title', $slider->display_order) }}" type="number" placeholder="Sıra No" required="">
                                         @error('display_order')
                                         <div class="valid-feedback">{{ $message }}</div>
                                         @enderror
@@ -44,15 +45,15 @@
                                     <label>Sayfada Göster:</label>
                                     <div class="m-checkbox-inline">
                                         <label for="status_active">
-                                            <input class="radio_animated" id="status_active" type="radio" name="status" value="1" checked="">Aktif
+                                            <input class="radio_animated" id="status_active" type="radio" name="status" value="1" {{ $slider->status == 1 ? 'checked' : '' }}>Aktif
                                         </label>
                                         <label for="status_inactive">
-                                            <input class="radio_animated" id="status_inactive" type="radio" name="status" value="0">Pasif
+                                            <input class="radio_animated" id="status_inactive" type="radio" name="status" value="0" {{ $slider->status == 0 ? 'checked' : '' }}>Pasif
                                         </label>
                                     </div>
                                 </div>
                             </div>
-                            <input type="hidden" name="cover_image" id="cover_image_path" value="{{ old('cover_image') }}">
+                            <input type="hidden" name="cover_image" id="cover_image_path" value="{{ old('cover_image', $slider->cover_image) }}">
                             <div class="btn-showcase text-end mb-3">
                                 <button class="btn btn-primary" type="submit">Ekle</button>
                                 <input class="btn btn-light" type="reset" value="Vazgeç">

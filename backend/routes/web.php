@@ -10,6 +10,7 @@ use App\Http\Controllers\ReferenceController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\SliderController;
 
 Route::get('admin/login', [LoginController::class, 'showLoginForm'])->name('login');;
 Route::post('admin/login', [LoginController::class, 'login'])->name('admin.auth.login');
@@ -98,4 +99,12 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('user/{id}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
     Route::put('user/{id}', [UserController::class, 'update'])->name('admin.users.update');
     Route::delete('user/{id}', [UserController::class, 'destroy'])->name('admin.users.destroy');
+
+    Route::get('sliders', [SliderController::class, 'index'])->name('admin.sliders.index');
+    Route::get('slider/create', [SliderController::class, 'create'])->name('admin.sliders.create');
+    Route::post('slider/store', [SliderController::class, 'store'])->name('admin.sliders.store');
+    Route::get('slider/{id}/edit', [SliderController::class, 'edit'])->name('admin.sliders.edit');
+    Route::put('slider/{id}', [SliderController::class, 'update'])->name('admin.sliders.update');
+    Route::delete('slider/{id}', [SliderController::class, 'destroy'])->name('admin.sliders.destroy');
+    Route::post('slider/upload-cover-image',[SliderController::class, 'uploadCoverImage'])->name('admin.sliders.uploadCoverImage');
 });

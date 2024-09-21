@@ -70,25 +70,7 @@
                                     <input type="hidden" name="description" id="description" value="{{ old('description', $blog->description) }}">
                                 </div>
 
-                                <!-- Meta ve Durum alanları -->
-{{--                                <div class="col-12">--}}
-{{--                                    <div class="row">--}}
-{{--                                        <div class="mb-3 col-sm-6">--}}
-{{--                                            <label for="validationCustom01">Meta Başlık:</label>--}}
-{{--                                            <input class="form-control" id="validationCustom01" type="text" value="{{ old('meta_title', $blog->meta_title) }}" placeholder="Meta Başlık" required="">--}}
-{{--                                        </div>--}}
-{{--                                        <div class="mb-3 col-sm-6">--}}
-{{--                                            <label for="validationCustom01">Meta Açıklama:</label>--}}
-{{--                                            <input class="form-control" id="validationCustom01" type="text" value="{{ old('meta_description', $blog->meta_description) }}" placeholder="Meta Açıklama" required="">--}}
-{{--                                        </div>--}}
-{{--                                        <div class="mb-3 col-sm-6">--}}
-{{--                                            <label for="validationCustom01">Anahtar Kelimeler:</label>--}}
-{{--                                            <input class="form-control" id="validationCustom01" type="text" value="{{ old('keywords', $blog->keywords) }}" placeholder="Anahtar Kelimeler" required="">--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
 
-                                <!-- Durum alanı -->
                                 <div class="mb-3">
                                     <label>Sayfada Göster:</label>
                                     <div class="m-checkbox-inline">
